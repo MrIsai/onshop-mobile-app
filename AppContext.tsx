@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Account } from "./utils/TypesAndIntefaces";
+import { AccountInterface } from "./utils/TypesAndIntefaces";
 
 type AppContextType = {
     authenticated: boolean;
@@ -14,7 +14,7 @@ type AppContextType = {
         password: string;
         token: string;
     } | null;
-    setAccount: (v: Account) => void;
+    setAccount: (v: AccountInterface) => void;
 };
 
 export const AppContext = createContext<AppContextType>({

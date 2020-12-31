@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
-import { IconProps } from "../props";
+import { IconProps } from "./IconProps";
 
 const AccountIcon: React.FC<IconProps> = ({ size, focused, dark }) => {
     const iconStyle = { width: size, height: size };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, TouchableWithoutFeedback } from "react-native";
-import { IconProps } from "../props";
+import { IconProps } from "./IconProps";
 
 const SettingsIcon: React.FC<IconProps> = ({ size, dark, onPress }) => {
     return (

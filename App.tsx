@@ -17,19 +17,19 @@ import { DarkTheme, LightTheme } from "./constants/themes";
 import { useFonts } from "expo-font";
 import LoadingScreen from "./screens/LoadingScreen";
 import { enableScreens } from "react-native-screens";
-import { Account } from "./utils/TypesAndIntefaces";
+import { AccountInterface } from "./utils/TypesAndIntefaces";
 
 enableScreens();
 
 export default function App() {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
-    const [account, setAccount] = useState<Account | null>(null);
+    const [account, setAccount] = useState<AccountInterface | null>(null);
 
     const scheme = useColorScheme();
     i18n.translations = translations;
     i18n.locale = Localization.locale;
     i18n.fallbacks = true;
-    
+
     const [loaded, error] = useFonts({
         courgette: require("./assets/fonts/Courgette/Courgette-Regular.ttf"),
         "martel-sans-bold": require("./assets/fonts/Martel_Sans/MartelSans-Bold.ttf"),

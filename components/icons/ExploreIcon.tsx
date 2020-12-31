@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
-import { IconProps } from "../props";
+import { IconProps } from "./IconProps";
 
 const ExploreIcon: React.FC<IconProps> = ({ size, focused, dark }) => {
     if (!dark) {
