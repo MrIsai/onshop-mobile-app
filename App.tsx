@@ -17,13 +17,13 @@ import { DarkTheme, LightTheme } from "./constants/themes";
 import { useFonts } from "expo-font";
 import LoadingScreen from "./screens/LoadingScreen";
 import { enableScreens } from "react-native-screens";
-import { AccountInterface } from "./utils/TypesAndIntefaces";
+import { Account } from "./utils/interfaces.utils";
 
 enableScreens();
 
 export default function App() {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
-    const [account, setAccount] = useState<AccountInterface | null>(null);
+    const [account, setAccount] = useState<Account | null>(null);
 
     const scheme = useColorScheme();
     i18n.translations = translations;

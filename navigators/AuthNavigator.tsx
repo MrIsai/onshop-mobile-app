@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import SignInScreen from "../screens/auth/SignInScreen";
 import SignUpNamesScreen from "../screens/auth/SignUpNamesScreen";
-import SignUpPwdScreen from "../screens/auth/SignUpPwdScreen";
+import SignUpPasswordScreen from "../screens/auth/SignUpPasswordScreen";
 import StartScreen from "../screens/StartScreen";
 import i18n from "i18n-js";
 import SuccessSignUpModal from "../screens/SuccessSignUpModal";
@@ -11,7 +11,7 @@ export type AuthStackParamList = {
     StartScreen: undefined;
     SignInScreen: undefined;
     SignUpNamesScreen: undefined;
-    SignUpPwdScreen: {
+    SignUpPasswordScreen: {
         firstname: string;
         lastname: string;
         email: string;
@@ -44,8 +44,8 @@ const AuthNavigator: React.FC = () => {
                 options={{ title: i18n.t("signUpName") }}
             />
             <AuthStack.Screen
-                name="SignUpPwdScreen"
-                component={SignUpPwdScreen}
+                name="SignUpPasswordScreen"
+                component={SignUpPasswordScreen}
                 options={{ title: i18n.t("signUpPassword") }}
             />
         </AuthStack.Navigator>

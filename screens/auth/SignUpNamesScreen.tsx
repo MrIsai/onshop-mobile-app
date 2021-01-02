@@ -113,7 +113,7 @@ const SignUpNamesScreen: React.FC<Props> = ({ navigation }) => {
                     title={i18n.t("next")}
                     disabled={!isValid}
                     onPress={() =>
-                        navigation.navigate("SignUpPwdScreen", {
+                        navigation.navigate("SignUpPasswordScreen", {
                             firstname: firstName,
                             lastname: lastName,
                             email: email,

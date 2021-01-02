@@ -13,16 +13,18 @@ import NormalTextInput from "../../components/inputs/NormalTextInput";
 import i18n from "i18n-js";
 import Button from "../../components/Button";
 import NormalSwitch from "../../components/switchs/NormalSwitch";
-import { RouteProp, useNavigation } from "@react-navigation/native";
+import { RouteProp } from "@react-navigation/native";
 import { AuthStackParamList } from "../../navigators/AuthNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigators/RootNavigator";
-import { signup } from "../../api/users.api";
 import { AppContext } from "../../AppContext";
+import { URL } from "../../config/api";
+import { responseValidation } from "../../utils/api.utils";
+import { AuthResponse } from "../../utils/interfaces.utils";
 
 type SignUpPwdScreenRouteProp = RouteProp<
     AuthStackParamList,
-    "SignUpPwdScreen"
+    "SignUpPasswordScreen"
 >;
 type SignUpPwdScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -31,7 +33,7 @@ type Props = {
     navigation: SignUpPwdScreenNavigationProp;
 };
 
-const SignUpPwdScreen: React.FC<Props> = ({ route, navigation }) => {
+const SignUpPasswordScreen: React.FC<Props> = ({ route, navigation }) => {
     const { setAccount } = React.useContext(AppContext);
     const [password, setPassword] = useState<string>("");
     const [rePassword, setRePassword] = useState<string>("");
@@ -62,19 +64,41 @@ const SignUpPwdScreen: React.FC<Props> = ({ route, navigation }) => {
         const name = { first: firstname, last: lastname };
 
         console.log("datos", email, name, password);
-        const token = await signup(name, email, password);
-        if (token) {
-            setAccount({
-                name: {
-                    first: firstname,
-                    last: lastname,
-                },
 
-                email,
-                password,
-                token,
+        // ** If you want avoid the sign up just uncomment this **
+        //(() => navigation.navigate("SucessSignUpModal"))();
+
+        const userInfo = { name, email, password };
+        const jsondata = JSON.stringify(userInfo);
+
+        try {
+            const response = await fetch(`${URL}/auth/signup`, {
+                method: "POST",
+                body: jsondata,
+                headers: {
+                    "Content-Type": "application/json",
+                },
             });
-            (() => navigation.navigate("SucessSignUpModal"))();
+
+            const data: AuthResponse = await responseValidation(response);
+            if (data.status) {
+                if (data.token && data.id) {
+                    setAccount({
+                        name,
+                        email,
+                        password,
+                        token: data.token,
+                        id: data.id,
+                    });
+                }
+
+                (() => navigation.navigate("SucessSignUpModal"))();
+            }
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Ocurrio un problema interno", "Revisa la consola", [
+                { text: "OK", onPress: () => 1 },
+            ]);
         }
     };
 
@@ -146,4 +170,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignUpPwdScreen;
+export default SignUpPasswordScreen;
